@@ -14,12 +14,14 @@ class SitioController extends Controller{
 
     public function actionInicio(){
         $model = new FormularioForm();
+        $mensaje = null;
+if($model->load(Yii::$app->request->post()) && $model->validate()){
+    $valorRespuesta = ("El resultado de la suma es: ". $model -> valorA + $model -> valorB);
+    $mensaje = $valorRespuesta;
+    return $this->render('inicio', ['mensaje' => $mensaje, 'model' => $model]);
+}
+return $this->render('inicio', ['mensaje' => $mensaje, 'model' => $model]);
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
-            $valorRespuesta = ("El resultado de la suma es: ". $model -> valorA + $model -> valorB);
-            return $this->render('inicio', ['mensaje' => $valorRespuesta, 'model' => $model]);
-        }
-        return $this->render('inicio', ['model' => $model]);
     }
 }
 ?>
